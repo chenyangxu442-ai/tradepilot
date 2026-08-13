@@ -1,7 +1,0 @@
-[credential "https://gitee.com"]
-	provider = generic
-[windows]
-	appendAtomically = false
-[http]
-	lowSpeedLimit = 1000
-	lowSpeedTime = 120
