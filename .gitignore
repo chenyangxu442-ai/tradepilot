@@ -1,0 +1,23 @@
+# dependencies
+node_modules/
+
+# build outputs
+dist/
+release/
+out/
+.next/
+*.tsbuildinfo
+
+# runtime data — never commit user data or secrets
+data/
+*.log
+
+# secrets
+.env
+.env.*
+!.env.example
+
+# os / editor
+.DS_Store
+Thumbs.db
+*.swp
