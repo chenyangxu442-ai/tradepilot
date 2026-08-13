@@ -1,0 +1,59 @@
+{
+  "name": "tradepilot",
+  "version": "1.0.0",
+  "description": "TradePilot — AI 外贸工作台桌面版：开发信 / 产品目录 / 报价单 / 展会话术",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tradepilot/tradepilot.git"
+  },
+  "main": "main.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node server/src/app.js --port 3003",
+    "dev:web": "npm --prefix web run dev",
+    "dev:electron": "cross-env DEV_URL=http://localhost:3000 electron .",
+    "build:web": "npm --prefix web run build",
+    "start": "electron .",
+    "dist": "npm run build:web && electron-builder --dir && node scripts/set-icon.js && electron-builder --win --prepackaged release/win-unpacked",
+    "pack": "npm run build:web && electron-builder --dir && node scripts/set-icon.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "openai": "^4.58.1",
+    "@anthropic-ai/sdk": "^0.32.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "electron": "^31.3.1",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.tradepilot.app",
+    "productName": "TradePilot",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main.js",
+      "server/src/**",
+      "!server/src/public",
+      "!server/src/views",
+      "!server/src/routes/auth.js",
+      "!server/src/routes/pages.js"
+    ],
+    "extraResources": [
+      { "from": "web/out", "to": "app/web/out" }
+    ],
+    "win": {
+      "target": "nsis",
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico"
+    }
+  }
+}
